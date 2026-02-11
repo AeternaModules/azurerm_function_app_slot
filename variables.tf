@@ -112,12 +112,12 @@ EOT
     storage_account_name       = string
     app_settings               = optional(map(string))
     daily_memory_time_quota    = optional(number)
-    enable_builtin_logging     = optional(bool, true)
-    enabled                    = optional(bool, true)
-    https_only                 = optional(bool, false)
+    enable_builtin_logging     = optional(bool) # Default: true
+    enabled                    = optional(bool) # Default: true
+    https_only                 = optional(bool) # Default: false
     os_type                    = optional(string)
     tags                       = optional(map(string))
-    version                    = optional(string, "~1")
+    version                    = optional(string) # Default: "~1"
     auth_settings = optional(object({
       active_directory = optional(object({
         allowed_audiences = optional(list(string))
@@ -145,8 +145,8 @@ EOT
         oauth_scopes  = optional(list(string))
       }))
       runtime_version               = optional(string)
-      token_refresh_extension_hours = optional(number, 72)
-      token_store_enabled           = optional(bool, false)
+      token_refresh_extension_hours = optional(number) # Default: 72
+      token_store_enabled           = optional(bool)   # Default: false
       twitter = optional(object({
         consumer_key    = string
         consumer_secret = string
@@ -163,20 +163,20 @@ EOT
       type         = string
     }))
     site_config = optional(object({
-      always_on           = optional(bool, false)
+      always_on           = optional(bool) # Default: false
       app_scale_limit     = optional(number)
       auto_swap_slot_name = optional(string)
       cors = optional(object({
         allowed_origins     = set(string)
-        support_credentials = optional(bool, false)
+        support_credentials = optional(bool) # Default: false
       }))
-      dotnet_framework_version = optional(string, "v4.0")
+      dotnet_framework_version = optional(string) # Default: "v4.0"
       elastic_instance_minimum = optional(number)
       ftps_state               = optional(string)
       health_check_path        = optional(string)
-      http2_enabled            = optional(bool, false)
+      http2_enabled            = optional(bool) # Default: false
       ip_restriction = optional(object({
-        action = optional(string, "Allow")
+        action = optional(string) # Default: "Allow"
         headers = optional(object({
           x_azure_fdid      = optional(set(string))
           x_fd_health_probe = optional(set(string))
@@ -185,7 +185,7 @@ EOT
         }))
         ip_address                = optional(string)
         name                      = optional(string)
-        priority                  = optional(number, 65000)
+        priority                  = optional(number) # Default: 65000
         service_tag               = optional(string)
         virtual_network_subnet_id = optional(string)
       }))
@@ -193,9 +193,9 @@ EOT
       linux_fx_version                 = optional(string)
       min_tls_version                  = optional(string)
       pre_warmed_instance_count        = optional(number)
-      runtime_scale_monitoring_enabled = optional(bool, false)
+      runtime_scale_monitoring_enabled = optional(bool) # Default: false
       scm_ip_restriction = optional(object({
-        action = optional(string, "Allow")
+        action = optional(string) # Default: "Allow"
         headers = optional(object({
           x_azure_fdid      = optional(set(string))
           x_fd_health_probe = optional(set(string))
@@ -204,15 +204,15 @@ EOT
         }))
         ip_address                = optional(string)
         name                      = optional(string)
-        priority                  = optional(number, 65000)
+        priority                  = optional(number) # Default: 65000
         service_tag               = optional(string)
         virtual_network_subnet_id = optional(string)
       }))
       scm_type                    = optional(string)
-      scm_use_main_ip_restriction = optional(bool, false)
-      use_32_bit_worker_process   = optional(bool, true)
+      scm_use_main_ip_restriction = optional(bool) # Default: false
+      use_32_bit_worker_process   = optional(bool) # Default: true
       vnet_route_all_enabled      = optional(bool)
-      websockets_enabled          = optional(bool, false)
+      websockets_enabled          = optional(bool) # Default: false
     }))
   }))
 }
