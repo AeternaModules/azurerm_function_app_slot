@@ -8,6 +8,8 @@ Required:
     - name
     - resource_group_name
     - storage_account_access_key
+    - storage_account_access_key_key_vault_id (alternative to storage_account_access_key - read from Key Vault instead)
+    - storage_account_access_key_key_vault_secret_name (alternative to storage_account_access_key - read from Key Vault instead)
     - storage_account_name
 Optional:
     - app_settings
@@ -103,21 +105,23 @@ Optional:
 EOT
 
   type = map(object({
-    app_service_plan_id        = string
-    function_app_name          = string
-    location                   = string
-    name                       = string
-    resource_group_name        = string
-    storage_account_access_key = string
-    storage_account_name       = string
-    app_settings               = optional(map(string))
-    daily_memory_time_quota    = optional(number)
-    enable_builtin_logging     = optional(bool) # Default: true
-    enabled                    = optional(bool) # Default: true
-    https_only                 = optional(bool) # Default: false
-    os_type                    = optional(string)
-    tags                       = optional(map(string))
-    version                    = optional(string) # Default: "~1"
+    app_service_plan_id                              = string
+    function_app_name                                = string
+    location                                         = string
+    name                                             = string
+    resource_group_name                              = string
+    storage_account_access_key                       = string
+    storage_account_access_key_key_vault_id          = optional(string)
+    storage_account_access_key_key_vault_secret_name = optional(string)
+    storage_account_name                             = string
+    app_settings                                     = optional(map(string))
+    daily_memory_time_quota                          = optional(number)
+    enable_builtin_logging                           = optional(bool) # Default: true
+    enabled                                          = optional(bool) # Default: true
+    https_only                                       = optional(bool) # Default: false
+    os_type                                          = optional(string)
+    tags                                             = optional(map(string))
+    version                                          = optional(string) # Default: "~1"
     auth_settings = optional(object({
       active_directory = optional(object({
         allowed_audiences = optional(list(string))

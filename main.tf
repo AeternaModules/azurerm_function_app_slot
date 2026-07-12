@@ -1,3 +1,8 @@
+data "azurerm_key_vault_secret" "storage_account_access_key" {
+  for_each     = { for k, v in var.function_app_slots : k => v if v.storage_account_access_key_key_vault_id != null && v.storage_account_access_key_key_vault_secret_name != null }
+  name         = each.value.storage_account_access_key_key_vault_secret_name
+  key_vault_id = each.value.storage_account_access_key_key_vault_id
+}
 resource "azurerm_function_app_slot" "function_app_slots" {
   for_each = var.function_app_slots
 
@@ -6,7 +11,7 @@ resource "azurerm_function_app_slot" "function_app_slots" {
   location                   = each.value.location
   name                       = each.value.name
   resource_group_name        = each.value.resource_group_name
-  storage_account_access_key = each.value.storage_account_access_key
+  storage_account_access_key = each.value.storage_account_access_key != null ? each.value.storage_account_access_key : try(data.azurerm_key_vault_secret.storage_account_access_key[each.key].value, null)
   storage_account_name       = each.value.storage_account_name
   app_settings               = each.value.app_settings
   daily_memory_time_quota    = each.value.daily_memory_time_quota
